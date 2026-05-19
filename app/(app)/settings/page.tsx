@@ -23,20 +23,24 @@ export default async function SettingsPage() {
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const [{ data: exercises }, goals, supplements] = await Promise.all([
+  const [
+    { data: exerciseRows },
+    goals,
+    { data: supplementRows },
+  ] = await Promise.all([
     supabase.from("exercises").select("name").eq("user_id", user.id),
     getUserGoals(user.id),
     supabase.from("supplements").select("*").eq("user_id", user.id).order("name"),
   ]);
 
   const names = [
-    ...new Set((exercises ?? []).map((e: { name: string }) => e.name)),
+    ...new Set((exerciseRows ?? []).map((e: { name: string }) => e.name)),
   ].sort();
 
   return (
     <SettingsPageClient
       exerciseNames={names}
-      supplements={supplements.data ?? []}
+      supplements={supplementRows ?? []}
       goals={goals ?? { ...defaultGoals, user_id: user.id }}
     />
   );

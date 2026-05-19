@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { format } from "date-fns";
-import { lt } from "date-fns/locale";
 import { createClient } from "@/lib/supabase/server";
 import {
   getCurrentStreak,
@@ -89,7 +88,7 @@ export default async function DashboardPage() {
                   <div>
                     <p className="font-medium">{w.name}</p>
                     <p className="text-[var(--color-muted-foreground)]">
-                      {format(new Date(w.date), "yyyy-MM-dd", { locale: lt })}
+                      {format(new Date(w.date), "yyyy-MM-dd")}
                       {w.duration_min ? ` · ${w.duration_min} min` : ""}
                     </p>
                   </div>

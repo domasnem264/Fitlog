@@ -6,21 +6,9 @@ import {
   muscleGroupBreakdown,
 } from "@/lib/workouts";
 import { HabitGrid } from "@/components/habit-grid";
+import { MuscleDonutChart, WeeklyVolumeChart } from "@/components/stats-charts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import {
-  Bar,
-  BarChart,
-  Cell,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-
-const COLORS = ["#2d8a5e", "#4a9e6e", "#6bb389", "#8fc9a8", "#b5dcc4"];
 
 export default async function StatsPage() {
   const supabase = await createClient();
@@ -56,14 +44,7 @@ export default async function StatsPage() {
           <CardTitle>Savaitės tūris (8 sav.)</CardTitle>
         </CardHeader>
         <CardContent className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={volumeChart}>
-              <XAxis dataKey="week" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="volume" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <WeeklyVolumeChart data={volumeChart} />
         </CardContent>
       </Card>
 
@@ -103,24 +84,7 @@ export default async function StatsPage() {
             <CardTitle>Raumenų grupės</CardTitle>
           </CardHeader>
           <CardContent className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={muscleData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  label={({ name, value }) => `${name} ${value}%`}
-                >
-                  {muscleData.map((_, i) => (
-                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+            <MuscleDonutChart data={muscleData} />
           </CardContent>
         </Card>
       </div>
@@ -130,7 +94,7 @@ export default async function StatsPage() {
           <CardTitle>Mėnesio heatmap</CardTitle>
         </CardHeader>
         <CardContent>
-          <HabitGrid trainedDates={heatmapDates} />
+          <HabitGrid trainedDates={[...heatmapDates]} />
           <p className="mt-3 text-xs text-[var(--color-muted-foreground)]">
             Žalia = treniruota, pilka = poilsis
           </p>

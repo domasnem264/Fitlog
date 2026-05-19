@@ -1,16 +1,17 @@
 import { cn } from "@/lib/utils";
 
 type HabitGridProps = {
-  trainedDates: Set<string>;
+  trainedDates: Set<string> | string[];
   year?: number;
   month?: number;
 };
 
 export function HabitGrid({
-  trainedDates,
+  trainedDates: trainedDatesInput,
   year = new Date().getFullYear(),
   month = new Date().getMonth(),
 }: HabitGridProps) {
+  const trainedDates = new Set(trainedDatesInput);
   const first = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startPad = (first.getDay() + 6) % 7;
