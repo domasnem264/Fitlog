@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { MEAL_SLOTS } from "@/lib/nutrition";
+import { MEAL_SLOTS } from "@/lib/meal-slots";
 import type { Meal, Supplement, UserGoals } from "@/lib/types";
 import { MacroCard } from "@/components/macro-tracker";
 import { Badge } from "@/components/ui/badge";

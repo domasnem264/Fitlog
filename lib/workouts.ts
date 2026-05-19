@@ -1,3 +1,5 @@
+import "server-only";
+
 import { calcVolume } from "@/lib/utils";
 import type { Exercise, Workout, WorkoutWithExercises } from "@/lib/types";
 import { createClient } from "@/lib/supabase/server";
