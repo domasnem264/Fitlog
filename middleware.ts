@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
   // Missing env on Vercel → middleware used to throw and show 500
   if (!supabaseUrl || !supabaseAnonKey) {
-    if (isProtectedPath(pathname)) {
+    if (pathname === "/" || isProtectedPath(pathname)) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
@@ -75,7 +75,7 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse;
   } catch (error) {
     console.error("[middleware]", error);
-    if (isProtectedPath(pathname)) {
+    if (pathname === "/" || isProtectedPath(pathname)) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
