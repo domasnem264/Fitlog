@@ -92,11 +92,11 @@ export async function getCurrentStreak(userId: string): Promise<number> {
   const today = new Date().toISOString().slice(0, 10);
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
-  let start = dates[0];
+  const start = dates[0];
   if (start !== today && start !== yesterday) return 0;
 
   let streak = 0;
-  let cursor = new Date(start + "T12:00:00");
+  const cursor = new Date(start + "T12:00:00");
 
   for (const dateStr of dates) {
     const expected = cursor.toISOString().slice(0, 10);

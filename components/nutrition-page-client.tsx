@@ -202,7 +202,6 @@ function MealRow({
   saving: boolean;
   onSave: (slot: string, draft: Partial<Meal>) => void;
 }) {
-  const [name, setName] = useState(meal?.name ?? slot);
   const [desc, setDesc] = useState(meal?.name ?? "");
   const [cal, setCal] = useState(String(meal?.calories ?? ""));
   const [p, setP] = useState(String(meal?.protein_g ?? ""));
@@ -243,7 +242,7 @@ function MealRow({
           disabled={saving}
           onClick={() =>
             onSave(slot, {
-              name: desc || name,
+              name: desc || slot,
               calories: cal ? Number(cal) : null,
               protein_g: p ? Number(p) : null,
               carbs_g: c ? Number(c) : null,

@@ -139,6 +139,15 @@ export function WorkoutLogForm() {
                 onChange={(e) => setDuration(e.target.value)}
               />
             </div>
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="notes">Pastabos (nebūtina)</Label>
+              <Input
+                id="notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Pvz. geros kojos"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
